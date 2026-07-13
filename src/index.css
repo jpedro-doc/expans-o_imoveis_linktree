@@ -31,6 +31,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
 }
 
+.brand-logo {
+  filter: brightness(0) saturate(100%) invert(14%) sepia(79%) saturate(3220%) hue-rotate(351deg) brightness(89%) contrast(99%);
+}
+
 ::selection { color: white; background: #a61c1c; }
 
 .grain::after {

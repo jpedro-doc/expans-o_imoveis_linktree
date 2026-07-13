@@ -1,22 +1,13 @@
-import { useRef, type MouseEvent, type ReactNode } from 'react'
+import { type MouseEvent, type ReactNode } from 'react'
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react'
-import { ArrowUpRight, Instagram, MessageCircle, MoveRight, Youtube } from 'lucide-react'
+import { ArrowUpRight, Instagram, MessageCircle, MoveRight } from 'lucide-react'
 import houseImage from '../assets/casa-expansao.jpg'
+import brandLogo from '../assets/logo-expansao-oficial.png'
 
 const ease = [0.22, 1, 0.36, 1] as const
 const whatsapp = 'https://wa.me/5586998138098?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20da%20Expans%C3%A3o%20Im%C3%B3veis.'
 const instagram = 'https://www.instagram.com/expansaoimoveisthe/'
 const website = 'https://www.expansaoimoveisthe.com.br/'
-
-function Logo({ className = '' }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 80 68" role="img" aria-label="Símbolo Expansão" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="square" strokeLinejoin="miter">
-      <path d="M8 55 40 9l32 46" />
-      <path d="M21 55 40 28l19 27" />
-      <path d="M8 55h64" />
-    </svg>
-  )
-}
 
 function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
   const reduceMotion = useReducedMotion()
@@ -33,30 +24,13 @@ function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; 
 }
 
 function MagneticLink({ children, href, className = '', label }: { children: ReactNode; href: string; className?: string; label?: string }) {
-  const ref = useRef<HTMLAnchorElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 240, damping: 18 })
-  const springY = useSpring(y, { stiffness: 240, damping: 18 })
-
-  const move = (event: MouseEvent<HTMLAnchorElement>) => {
-    const rect = ref.current?.getBoundingClientRect()
-    if (!rect) return
-    x.set((event.clientX - rect.left - rect.width / 2) * .08)
-    y.set((event.clientY - rect.top - rect.height / 2) * .12)
-  }
-
   return (
     <motion.a
-      ref={ref}
       href={href}
       target="_blank"
       rel="noreferrer"
       aria-label={label}
       className={className}
-      style={{ x: springX, y: springY }}
-      onMouseMove={move}
-      onMouseLeave={() => { x.set(0); y.set(0) }}
       whileTap={{ scale: .985 }}
     >
       {children}
@@ -112,28 +86,28 @@ function App() {
 
       <main className="page-main relative mx-auto grid min-h-dvh w-full max-w-[1180px] grid-cols-1 px-4 lg:grid-cols-[340px_minmax(440px,560px)] lg:grid-rows-[1fr_auto] lg:items-center lg:justify-center lg:gap-x-[clamp(4rem,8vw,8rem)] lg:px-12 lg:py-8">
         <section className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left" aria-labelledby="brand-name">
-          <Reveal delay={.05}>
-            <Logo className="mb-1 w-10 text-crimson sm:w-12 lg:mb-4 lg:w-16" />
-          </Reveal>
-
-          <Reveal delay={.12}>
-            <h1 id="brand-name" className="uppercase leading-none">
-              <span className="block text-[clamp(1.7rem,8vw,3.45rem)] font-extrabold tracking-[.075em]">Expansão</span>
-              <span className="mt-2 block text-[.58rem] font-bold tracking-[.62em] text-crimson [text-indent:.62em] sm:text-[.63rem] lg:mt-2.5 lg:text-xs">Imóveis</span>
+          <Reveal delay={.06}>
+            <h1 id="brand-name" className="leading-none">
+              <img
+                src={brandLogo}
+                width="1100"
+                height="780"
+                alt="Expansão Imóveis"
+                className="brand-logo h-auto w-[205px] sm:w-[235px] lg:w-[310px]"
+              />
             </h1>
           </Reveal>
 
-          <Reveal delay={.2}>
+          <Reveal delay={.16}>
             <p className="mt-4 text-[.68rem] font-medium leading-5 tracking-[.035em] sm:text-xs sm:leading-6 lg:mt-9 lg:text-[.8rem] lg:leading-7">
               As <strong className="font-bold text-crimson">melhores oportunidades</strong> em um só lugar.
             </p>
           </Reveal>
 
-          <Reveal delay={.28}>
+          <Reveal delay={.24}>
             <nav className="mt-2 flex gap-3 lg:mt-6 lg:gap-5" aria-label="Redes sociais">
               <SocialLink href={instagram} label="Instagram da Expansão Imóveis"><Instagram size={18} strokeWidth={1.6} /></SocialLink>
               <SocialLink href={whatsapp} label="WhatsApp da Expansão Imóveis"><MessageCircle size={18} strokeWidth={1.6} /></SocialLink>
-              <SocialLink href="https://www.youtube.com/results?search_query=expansao+imoveis+the" label="YouTube da Expansão Imóveis"><Youtube size={19} strokeWidth={1.6} /></SocialLink>
             </nav>
           </Reveal>
 
@@ -161,7 +135,13 @@ function App() {
                 <span className="text-[.5rem] font-bold">Seleção</span><b className="text-[.72rem] text-crimson">01</b>
               </motion.div>
 
-              <div className="image-mask relative h-[clamp(350px,52svh,520px)] overflow-hidden bg-neutral-300 shadow-[0_22px_60px_rgba(35,31,28,.14)] sm:h-[clamp(390px,58svh,600px)] lg:h-[clamp(460px,64vh,650px)] lg:shadow-[0_28px_80px_rgba(35,31,28,.15)]">
+              <a
+                href={website}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Acessar o site da Expansão Imóveis"
+                className="image-mask group/property relative block h-[clamp(350px,52svh,520px)] touch-manipulation overflow-hidden bg-neutral-300 shadow-[0_22px_60px_rgba(35,31,28,.14)] outline-none focus-visible:ring-2 focus-visible:ring-crimson focus-visible:ring-offset-4 sm:h-[clamp(390px,58svh,600px)] lg:h-[clamp(460px,64vh,650px)] lg:cursor-pointer lg:shadow-[0_28px_80px_rgba(35,31,28,.15)]"
+              >
                 <motion.img
                   src={houseImage}
                   width="1122"
@@ -173,11 +153,14 @@ function App() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                 <div className="shine absolute inset-0" />
+                <span className="absolute right-3 top-3 z-10 flex items-center gap-1.5 bg-black/20 px-2.5 py-2 text-[.44rem] font-semibold uppercase tracking-[.16em] text-white backdrop-blur-sm transition-colors group-hover/property:bg-crimson group-focus-visible/property:bg-crimson sm:right-4 sm:top-4">
+                  Visitar site <ArrowUpRight size={12} strokeWidth={1.5} />
+                </span>
                 <div className="absolute inset-x-4 bottom-4 z-10 flex justify-between text-[.45rem] font-semibold uppercase tracking-[.2em] text-white">
                   <span>Arquitetura contemporânea</span><span>Exp — 01</span>
                 </div>
                 <div className="vertical-copy absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[.42rem] font-semibold uppercase tracking-[.26em] text-white/70 sm:block">Teresina · Piauí</div>
-              </div>
+              </a>
             </motion.figure>
 
             <div className="bg-white">
