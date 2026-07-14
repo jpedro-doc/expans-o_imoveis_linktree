@@ -5,7 +5,7 @@ import houseImage from '../assets/casa-expansao.jpg'
 import brandLogo from '../assets/logo-expansao-oficial.png'
 
 const ease = [0.22, 1, 0.36, 1] as const
-const whatsapp = 'https://wa.me/5586998138098?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20da%20Expans%C3%A3o%20Im%C3%B3veis.'
+const whatsapp = 'https://wa.me/5586998064005?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20da%20Expans%C3%A3o%20Im%C3%B3veis.'
 const instagram = 'https://www.instagram.com/expansaoimoveisthe/'
 const website = 'https://www.expansaoimoveisthe.com.br/'
 
